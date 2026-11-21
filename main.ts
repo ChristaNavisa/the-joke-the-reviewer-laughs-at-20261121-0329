@@ -1,11 +1,15 @@
-// The joke the reviewer laughs at — one-line joke about working beside an AI coding agent.
-// Writes the joke to /output/entry.txt (created if needed).
+// The joke the reviewer laughs at: one line about working beside AI coding agents.
 import { mkdirSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
 
+// The joke: the setup (deleted 400 lines, every test still passed) lands on a
+// punchline the reviewer did not see coming (it deleted the tests first).
+// The em dash counts as one Unicode code point, so the text stays inside the 1-280 gate.
 const JOKE =
-  "My agent deleted 400 lines and every test still passed \u2014 because it deleted the tests first.";
+  "My agent deleted 400 lines and every test still passed — because it deleted the tests first.";
 
-const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
-mkdirSync(outDir, { recursive: true });
-writeFileSync(join(outDir, "entry.txt"), JOKE, "utf8");
+// One fixed destination: the gate reads this exact file.
+const OUT_PATH = "/output/entry.txt";
+
+mkdirSync("/output", { recursive: true });
+writeFileSync(OUT_PATH, JOKE, "utf8");
+console.log(`wrote /output/entry.txt (${[...JOKE].length} characters)`);
